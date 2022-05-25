@@ -27,7 +27,9 @@ export class CollectionComponent implements OnInit {
 
     console.log(this.collectionForm.value);
 
-    this.collectionService.createCollection(this.collectionForm.value)
+    this.collectionService.createCollection(this.collectionForm.value).subscribe( async (res:any) => {
+      console.log(res);
+    });
     
   }
 

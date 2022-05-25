@@ -11,7 +11,9 @@ export class CollectionService {
     constructor(private http: HttpClient) { }
 
     createCollection(body: JSON){
-        return this.http.post(environment.apiURL, body);
+        console.log(body);
+        console.log(environment.apiURL);
+        return this.http.post("http://localhost:8080/api/createCollection", body);
     }
 
 }

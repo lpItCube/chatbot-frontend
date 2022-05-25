@@ -1,0 +1,16 @@
+<section>
+    <h1>Example Form Component - Collection:</h1>
+    <form [formGroup]="collectionForm" (ngSubmit)="onSubmitCollection()">
+        <p>
+            <label>Name:</label>
+            <input type="text" formControlName="name" required>
+        </p>
+        <p>
+            <label>Description:</label>
+            <textarea formControlName="description" required></textarea>
+        </p>
+        <p>
+            <button type="submit" [disabled]="!collectionForm.valid">Submit</button>
+        </p>
+    </form>
+</section>

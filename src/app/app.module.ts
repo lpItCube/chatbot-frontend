@@ -21,8 +21,9 @@ import { CollectionsComponent } from './modules/collections/collections.componen
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot([
-      {path: 'edit', component: CollectionComponent},
-      {path: '', component: CollectionsComponent},
+      {path: 'edit/:id', component: CollectionComponent},
+      {path: '', component: CollectionsComponent, pathMatch: 'full'},
+      {path: '**', redirectTo: ''}
     ]),
   ],
   providers: [],

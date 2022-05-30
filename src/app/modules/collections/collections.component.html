@@ -9,7 +9,7 @@
         <img src="../../../assets/imgs/chatbot_default.png">
         <h3>{{col['name']}}</h3>
         <p>{{col['description']}}</p>
-        <a routerLink="/edit">Edit</a>
+        <a [routerLink]="['edit', col['id']]">Edit</a>
     </div>
 </div>
 

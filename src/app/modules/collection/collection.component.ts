@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { CollectionService } from './service/collection.service';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-collection',
@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class CollectionComponent implements OnInit {
 
+  public id = "";
+
   public collectionForm = this.fb.group({
     "name": ["", Validators.required],
     "description":["", Validators.required]
@@ -18,9 +20,12 @@ export class CollectionComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private collectionService: CollectionService,
-              private router: Router) { }
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id') as any;
+    console.log(this.id);
   }
 
   submitModal(){

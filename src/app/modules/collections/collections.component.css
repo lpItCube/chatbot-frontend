@@ -79,6 +79,8 @@
     padding: 30px;
     background-image: url(../../../assets/imgs/background.png);
     min-height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 

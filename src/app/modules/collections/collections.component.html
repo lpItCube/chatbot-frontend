@@ -1,0 +1,37 @@
+<div class="collectionsCards">
+    <div class="collectionCard" *ngFor="let col for collectionsList">
+        <img src="">
+        <h2>{{col.name}}</h2>
+        <p>{{col.description}}</p>
+        <a routerLink="/edit">Edit</a>
+    </div>
+    <div class="collectionCard">
+        <div class="newChatbot">
+            <p>Create new chatbot</p>
+            <a (click)="showModalCreateCollection()">+</a>
+        </div>
+    </div>
+    <div class="collectionCard">
+        <img src="../../../assets/imgs/chatbot_default.png">
+        <h3>Demo 1 chatbot</h3>
+        <p>Il cazzo de luquita eh molto grande</p>
+        <a routerLink="/edit">Edit</a>
+    </div>
+    <div class="collectionCard">
+        <img src="../../../assets/imgs/chatbot_default.png">
+        <h3>Demo 2 chatbot</h3>
+        <p>Il cazzo de luquita eh molto chiquito</p>
+        <a routerLink="/edit">Edit</a>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div id="NewCollectionModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span (click)="closeModal()" class="close">&times;</span>
+        <app-collection></app-collection>
+    </div>
+  
+</div>

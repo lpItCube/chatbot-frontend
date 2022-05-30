@@ -1,0 +1,122 @@
+
+.collectionCard{
+    width: 180px;
+    height: 300px;
+    background-color: white;
+    margin: 10px;
+    border-radius: 12px;
+    transition: transform .2s;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.collectionCard:hover{
+    transform: scale(1.1);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.collectionCard > img{
+    width: 180px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+}
+
+.collectionCard > h3{
+    text-align: center;
+}
+
+.collectionCard > p{
+    text-align: center;
+    padding: 5px;
+    height: 71px;
+}
+
+.collectionCard > a{
+    height: 30px;
+    background-color: red;
+    bottom: 0;
+    display: block;
+    border-radius: 0 0 12px 12px;
+    text-align: center;
+    padding: 5px;
+    line-height: 30px;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+}
+
+.newChatbot > p{
+    text-align: center;
+    margin-top: 50%;
+}
+
+.newChatbot > a{
+    display: block;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 2em;
+    background: #c8c8c8;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
+
+.newChatbot > a:hover{
+    background: #e7e7e7;
+}
+
+.collectionsCards{
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 30px;
+    background-image: url(../../../assets/imgs/background.png);
+    min-height: 100vh;
+}
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    border-radius: 12px;
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }

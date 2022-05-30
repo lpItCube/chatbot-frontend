@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { CollectionService } from './service/collection.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-collection',
@@ -20,6 +21,11 @@ export class CollectionComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  submitModal(){
+    let modal = document.getElementById('NewCollectionModal');
+    modal!.style.display = "none";
+  }
+
   onSubmitCollection() {
     console.log("uwu");
 
@@ -29,6 +35,12 @@ export class CollectionComponent implements OnInit {
 
     this.collectionService.createCollection(this.collectionForm.value).subscribe( async (res:any) => {
       console.log(res);
+      if(res.ok){
+        console.log("ok");
+        this.submitModal();
+      }else{
+        console.log("error");
+      }
     });
     
   }

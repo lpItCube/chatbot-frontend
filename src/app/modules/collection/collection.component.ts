@@ -11,8 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CollectionComponent implements OnInit {
 
-  public id = "";
-
   public collectionForm = this.fb.group({
     "name": ["", Validators.required],
     "description":["", Validators.required]
@@ -20,12 +18,9 @@ export class CollectionComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private collectionService: CollectionService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+              private router: Router) { }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id') as any;
-    console.log(this.id);
   }
 
   submitModal(){

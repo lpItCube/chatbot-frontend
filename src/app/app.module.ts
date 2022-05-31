@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { CollectionComponent } from './modules/collection/collection.component';
 import { CollectionService } from './modules/collection/service/collection.service';
 import { CollectionsComponent } from './modules/collections/collections.component';
+import { NodeComponent } from './modules/node/node.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CollectionComponent,
-    CollectionsComponent
+    CollectionsComponent,
+    NodeComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +23,7 @@ import { CollectionsComponent } from './modules/collections/collections.componen
     FormsModule,
     HttpClientModule,
     RouterModule.forRoot([
-      {path: 'edit/:id', component: CollectionComponent},
+      {path: 'edit/:id', component: NodeComponent},
       {path: '', component: CollectionsComponent, pathMatch: 'full'},
       {path: '**', redirectTo: ''}
     ]),

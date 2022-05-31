@@ -62,4 +62,5 @@ button:hover {
 button:disabled,
 button[disabled]{
     background: rgb(186, 186, 186);
+    cursor: initial;
 }

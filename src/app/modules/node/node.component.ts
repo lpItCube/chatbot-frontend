@@ -14,6 +14,7 @@ export class NodeComponent implements OnInit {
 
   public id = "";
   public nodeNumber = 0;
+  public nodesOfCollection = [];
 
   public nodeForm = this.fb.group({
     "title": ["", Validators.required],
@@ -38,6 +39,7 @@ export class NodeComponent implements OnInit {
     this.nodeservice.getNodesCollID(this.id).subscribe( async (res:any) => {
       console.log(res);
       this.nodeNumber = res.length;
+      this.nodesOfCollection = res;
     });
   }
 

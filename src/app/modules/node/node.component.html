@@ -7,8 +7,18 @@
         <p>Create new Node</p>
     </div>
 
-    <div class="middleScreenText">
-        <h3 *ngIf="nodeNumber==0" >This chatbot doesn't have nodes. Create new one</h3>
+    <div class="canvasNodes example-boundary">
+        <h3 *ngIf="nodeNumber==0" class="middleScreenText">This chatbot doesn't have nodes. Create new one</h3>
+        <ng-container *ngIf="nodeNumber>0">
+            <div class="nodeCard example-box" cdkDragBoundary=".example-boundary" cdkDrag *ngFor="let node of nodesOfCollection">
+                <header>{{node['title']}}</header>
+                <div class="content">
+                  <div class="icon"><i class='bx bx-move'></i></div>
+                  <div class="title">Draggable Div</div>
+                  <p>This is a draggable div which is created using HTML CSS & JavaScript. You can move this div anywhere on the document or page.</p>
+                </div>
+              </div>
+        </ng-container>
     </div>
 
     <!-- The Modal -->

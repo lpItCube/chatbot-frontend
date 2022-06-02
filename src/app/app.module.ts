@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { CollectionComponent } from './modules/collection/collection.component';
-import { CollectionService } from './modules/collection/service/collection.service';
+import { CollectionService } from './services/collection.service';
 import { CollectionsComponent } from './modules/collections/collections.component';
 import { NodeComponent } from './modules/node/node.component';
 

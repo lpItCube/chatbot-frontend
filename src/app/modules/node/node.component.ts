@@ -1,7 +1,9 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { getTranslationDeclStmts } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NodeService } from 'src/app/services/node.service';
 
 @Component({
   selector: 'app-node',
@@ -22,7 +24,8 @@ export class NodeComponent implements OnInit {
   });
 
   constructor(private route: ActivatedRoute,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder,
+              private nodeservice: NodeService) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') as any;
@@ -32,7 +35,10 @@ export class NodeComponent implements OnInit {
 
   getNodes(){
     console.log(this.id);
-
+    this.nodeservice.getNodesCollID(this.id).subscribe( async (res:any) => {
+      console.log(res);
+      this.nodeNumber = res.length;
+    });
   }
 
   showModalCreateNode(){

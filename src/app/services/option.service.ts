@@ -6,16 +6,12 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class NodeService {
+export class OptionService {
 
     constructor(private http: HttpClient) { }
 
-    createNode(body: JSON){
-        return this.http.post(environment.apiURL+"/createNode", body);
-    }
-
-    getNodesCollID(id: any){
-      return this.http.get(environment.apiURL+"/getNodes?collectionId="+id);
+    createOption(body: JSON){
+        return this.http.post(environment.apiURL+"/addOption", body);
     }
 
 }

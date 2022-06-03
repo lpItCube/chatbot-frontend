@@ -11,13 +11,22 @@
         <h3 *ngIf="nodeNumber==0" class="middleScreenText">This chatbot doesn't have nodes. Create new one</h3>
         <ng-container *ngIf="nodeNumber>0">
             <div class="nodeCard example-box" cdkDragBoundary=".example-boundary" cdkDrag *ngFor="let node of nodesOfCollection">
-                <header>{{node['title']}}</header>
-                <div class="content">
-                  <div class="icon"><i class='bx bx-move'></i></div>
+                <header cdkDragHandle>{{node['title']}}</header>
+                <div class="content"><!--TRY TODO DISABLED BODY-->
+                    <textarea id="testTextArea" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'>{{node['description']}}</textarea>
+                    <div class="listOptions">
+                        <div class="listOptionsItem" *ngFor="let optn of node['options']">
+                            <p>{{optn['name']}} {{optn['description']}}</p>
+                        </div>
+                        <div (click)="optionModal()" class="listOptionsItem addOption">
+                            <p>+ Add Option</p>
+                        </div>
+                    </div>
+                  <!--<div class="icon"><i class='bx bx-move'></i></div>
                   <div class="title">Draggable Div</div>
-                  <p>This is a draggable div which is created using HTML CSS & JavaScript. You can move this div anywhere on the document or page.</p>
+                  <p>This is a draggable div which is created using HTML CSS & JavaScript. You can move this div anywhere on the document or page.</p>-->
                 </div>
-              </div>
+            </div>
         </ng-container>
     </div>
 
@@ -30,10 +39,10 @@
             <section>
                 <h1>Create new Node:</h1>
                 <form [formGroup]="nodeForm" (ngSubmit)="onSubmitNode()">
-                    <p>
+                    <!--<p>
                         <label>Data:</label>
                         <textarea formControlName="data" required></textarea>
-                    </p>
+                    </p>-->
                     <p>
                         <label>Description:</label>
                         <textarea formControlName="description" required></textarea>
@@ -54,5 +63,7 @@
         </div>
     
     </div>
+
+    <app-option></app-option>
 
 </div>

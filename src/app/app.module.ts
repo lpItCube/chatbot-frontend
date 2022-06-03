@@ -12,13 +12,15 @@ import { NodeComponent } from './modules/node/node.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { OptionComponent } from './modules/option/option.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CollectionComponent,
     CollectionsComponent,
-    NodeComponent
+    NodeComponent,
+    OptionComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +35,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     ]),
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [OptionComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

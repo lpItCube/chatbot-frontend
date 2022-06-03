@@ -52,17 +52,21 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    max-width: 450px;
+    max-width: 250px;
     width: 100%;
     background: #fff;
     border-radius: 10px;
     transform: translate(-50%, -50%);
     box-shadow: 10px 10px 15px rgba(0,0,0,0.06);
   }
+  .nodeCard textarea {
+    resize: none;
+    max-width: 100%;
+  }
   .nodeCard header{
     font-size: 23px;
     font-weight: 500;
-    padding: 17px 30px;
+    padding: 17px 30px 17px 20px;
     border-bottom: 1px solid #ccc;
   }
   .nodeCard header.active{
@@ -71,7 +75,8 @@
   }
   .nodeCard .content{
     display: flex;
-    padding: 30px 30px 40px 30px;
+    cursor: default;
+    padding: 15px 10px 15px 10px;
     align-items: center;
     flex-direction: column;
     justify-content: center;
@@ -120,4 +125,34 @@
   .example-boundary {
     max-width: 100%;
     border: dotted #ccc 2px;
+  }
+
+  .modal-content{
+    margin: 5% auto !important;
+  }
+
+
+  .listOptions{
+    width: 100%;
+  }
+
+  .listOptionsItem{
+    background: rgb(89, 89, 255);
+    padding: 5px 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+  }
+
+  .listOptionsItem > p{
+    margin: 0 !important;
+    color: white;
+  }
+
+  .addOption{
+      cursor: pointer;
+      transition: all .2s ease;
+  }
+
+  .addOption:hover{
+    transform: scale(1.05);
   }

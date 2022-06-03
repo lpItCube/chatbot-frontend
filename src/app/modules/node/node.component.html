@@ -18,7 +18,7 @@
                         <div class="listOptionsItem" *ngFor="let optn of node['options']">
                             <p>{{optn['name']}} {{optn['description']}}</p>
                         </div>
-                        <div (click)="optionModal()" class="listOptionsItem addOption">
+                        <div (click)="optionModal(node['id'])" class="listOptionsItem addOption">
                             <p>+ Add Option</p>
                         </div>
                     </div>

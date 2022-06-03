@@ -5,7 +5,6 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router';
 import { NodeService } from 'src/app/services/node.service';
 import { DragDropModule} from '@angular/cdk/drag-drop';
-import { OptionComponent } from '../option/option.component';
 
 @Component({
   selector: 'app-node',
@@ -28,8 +27,7 @@ export class NodeComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
-              private nodeservice: NodeService,
-              private optionComponent: OptionComponent) { }
+              private nodeservice: NodeService) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') as any;
@@ -41,8 +39,8 @@ export class NodeComponent implements OnInit {
     this.fixTextareaHieght();
   }
 
-  optionModal(){
-    this.optionComponent.showModalCreateOption();
+  optionModal(nodeID: any){
+    document.getElementById("accionadorModalOpciones")!.setAttribute('value', nodeID);
   }
 
   getNodes(){

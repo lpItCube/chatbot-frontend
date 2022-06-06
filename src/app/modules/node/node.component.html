@@ -11,12 +11,15 @@
         <h3 *ngIf="nodeNumber==0" class="middleScreenText">This chatbot doesn't have nodes. Create new one</h3>
         <ng-container *ngIf="nodeNumber>0">
             <div class="nodeCard example-box" cdkDragBoundary=".example-boundary" cdkDrag *ngFor="let node of nodesOfCollection">
-                <header cdkDragHandle>{{node['title']}}</header>
+                <header class="cardEvent" cdkDragHandle>{{node['title']}}</header>
                 <div class="content"><!--TRY TODO DISABLED BODY-->
                     <textarea id="testTextArea" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'>{{node['description']}}</textarea>
                     <div class="listOptions">
+                        <div *ngIf="node['title'] == 'Primo nodo'" id="startFArrow" class="listOptionsItem">start</div>
+                        <div *ngIf="node['title'] == 'Primo nodo 2'" id="endFArrow" class="listOptionsItem">end</div>
                         <div class="listOptionsItem" *ngFor="let optn of node['options']">
                             <p>{{optn['name']}} {{optn['description']}}</p>
+                            <div></div>
                         </div>
                         <div (click)="optionModal(node['id'])" class="listOptionsItem addOption">
                             <p>+ Add Option</p>

@@ -6,6 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { NodeService } from 'src/app/services/node.service';
 import { DragDropModule} from '@angular/cdk/drag-drop';
 
+import LeaderLine from 'leader-line-new';
+
 @Component({
   selector: 'app-node',
   templateUrl: './node.component.html',
@@ -37,6 +39,26 @@ export class NodeComponent implements OnInit {
 
   ngAfterViewInit(): void{
     this.fixTextareaHieght();
+
+    var checkExist = setInterval(() => {
+      console.log("F");
+      if (document.querySelector("#startFArrow")) {
+        console.log("encontrao");
+        const line1 = new LeaderLine(
+          document.getElementById('startFArrow'),
+          document.getElementById('endFArrow')
+        );
+        const boxes = document.querySelectorAll('.cardEvent');
+        boxes.forEach(box => {
+          box.addEventListener('mousemove', function() {
+            line1.position();
+            console.log('uwu');
+          });
+        });
+         clearInterval(checkExist);
+      }
+    }, 100);
+
   }
 
   optionModal(nodeID: any){

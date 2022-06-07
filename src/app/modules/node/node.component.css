@@ -173,6 +173,8 @@
     top: 0;
     bottom: 0;
     margin: auto;
+    cursor: pointer;
+    transition: all .2s ease;
   }
 
   .outCircleEmpty{
@@ -185,6 +187,8 @@
     border-style: solid;
     border-color: #fff;
     margin-top: -21px;
+    cursor: pointer;
+    transition: all .2s ease;
   }
 
   .inCircleFull{
@@ -199,6 +203,8 @@
     top: 0;
     bottom: 0;
     margin: auto;
+    cursor: pointer;
+    transition: all .2s ease;
   }
 
   .outCircleFull{
@@ -211,4 +217,48 @@
     border-style: solid;
     border-color: #fff;
     margin-top: -21px;
+    cursor: pointer;
+    transition: all .2s ease;
+  }
+
+  .outCircleFull > p, .inCircleEmpty > p{
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .outCircleFull, .inCircleEmpty{
+    cursor: default;
+  }
+
+  .inCircleFull > p{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 5.8px;
+    bottom: 0;
+    right: 0;
+    position: relative;
+    visibility:hidden;
+    opacity:0;
+    transition:visibility 0.2s linear,opacity 0.2s linear;
+    color: white;
+  }
+
+  .outCircleEmpty > p{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: relative;
+    visibility:hidden;
+    opacity:0;
+    transition:visibility 0.2s linear,opacity 0.2s linear;
+    color: black;
+  }
+
+  .outCircleEmpty:hover > p, .inCircleFull:hover > p{
+    visibility: visible;
+    opacity: 1;
   }

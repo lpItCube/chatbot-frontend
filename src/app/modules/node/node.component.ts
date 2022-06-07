@@ -22,6 +22,11 @@ export class NodeComponent implements OnInit {
   public allOptions = [];
   public linksOptions = [];
 
+  public optionForLink = -1;
+  public nodeForLink = -1;
+
+  public allLines = [];
+
   public nodeForm = this.fb.group({
     "title": ["", Validators.required],
     "description":["", Validators.required],
@@ -73,11 +78,13 @@ export class NodeComponent implements OnInit {
       console.log(this.allOptions);
       this.linksOptions = await this.optionComponent.getLinkOptions(this.allOptions);
       console.log(this.linksOptions);
-      this.putArrows();
+      await this.putArrows();
+      this.addClickNodeConnection();
     });
   }
 
   putArrows(){
+    this.allLines = [];
     for(let option in this.linksOptions){
       console.log(this.linksOptions[option]);
       let optionId = 'optionId-'+this.linksOptions[option]['optionId'];
@@ -89,26 +96,142 @@ export class NodeComponent implements OnInit {
             document.getElementById(optionId),
             document.getElementById(nodeId)
           );
+
+          this.allLines.push({'line1': line1, 'nodeId': nodeId});
+
+          let outOptionforChange = document.getElementById(optionId).getElementsByClassName('outCircleEmpty')[0];
+          outOptionforChange.classList.remove('outCircleEmpty');
+          outOptionforChange.classList.add('outCircleFull');
+
+          const onClick = () => {
+            let elemNode = document.getElementById(nodeId);
+            let elemOption = document.getElementById(optionId).getElementsByClassName('outCircleFull')[0];
+
+            document.getElementById(nodeId).removeEventListener('click', onClick);
+
+            if(elemNode != null && elemNode != undefined){
+              //if(line1 != undefined){
+                //line1.remove();
+                this.deleteLine(nodeId);
+              //}
+              
+              elemNode.classList.remove('inCircleFull');
+              elemNode.classList.add('inCircleEmpty');
+              elemOption.classList.remove('outCircleFull');
+              elemOption.classList.add('outCircleEmpty');
+              //remove link in backend between node and option
+              
+            }
+            this.addClickNodeConnection();
+          };
+
+          document.getElementById(nodeId).addEventListener('click', onClick);
+
           const boxes = document.querySelectorAll('.cardEvent');
           boxes.forEach(box => {
-            box.addEventListener('mousemove', function() {
-              line1.position();
-              console.log('uwu');
+            box.addEventListener('mousemove', () => {
+              //line1.position();
+              this.positionLines();
             });
           });
+
           const container = document.querySelectorAll('.canvasNodes');
           container.forEach(box => {
-            box.addEventListener('scroll', function() {
-              line1.position();
-              console.log('uwu2');
+            box.addEventListener('scroll', () => {
+              //line1.position();
+              this.positionLines();
             });
           });
+
         }
-      /*const line = new LeaderLine(
-        document.getElementById('optionId-'+option['optionId']),
-        document.getElementById('nodeId-'+option['nodeId'])
-      );*/
     }
+  }
+
+  positionLines(){
+    console.log(this.allLines);
+    this.allLines.forEach(line => {
+      line.line1.position();
+    });
+  }
+
+  deleteLine(nodeId){
+    this.allLines.forEach((line, index, arr) => {
+      if(line.nodeId == nodeId){
+        line.line1.remove();
+        arr.splice(index, 1);
+      }
+    });
+  }
+
+  checkIfLineExists(nodeId){
+    let existss = false;
+    this.allLines.forEach(line => {
+      if(line.nodeId == nodeId){
+        existss = true;
+      }
+    });
+    return existss;
+  }
+
+  addClickNodeConnection(){
+    const inEmptyNodes = document.querySelectorAll('.inCircleEmpty');
+    inEmptyNodes.forEach(node => {
+      node.addEventListener('click', () => {
+        console.log('hahahah clickkkkkk');
+        //revisar el borrado si tienes un optionforlink != -1
+        if(this.optionForLink != -1 && !this.checkIfLineExists(node.id)){
+
+          let optionId = 'optionId-'+this.optionForLink;
+          let nodeId = node.id;
+          console.log(optionId);
+          console.log(nodeId);
+
+          const line1 = new LeaderLine(
+            document.getElementById(optionId),
+            document.getElementById(nodeId)
+          );
+          this.allLines.push({'line1': line1, 'nodeId': nodeId});
+
+          document.getElementById(nodeId).classList.remove('inCircleEmpty');
+          document.getElementById(nodeId).classList.add('inCircleFull');
+          let optionElem = document.getElementById(optionId).getElementsByClassName('outCircleEmpty')[0];
+          /*optionElem.classList.remove('outCircleEmpty');
+          optionElem.classList.add('outCircleFull');*/
+
+          //Llamada al backend
+
+          this.optionForLink = -1;
+        }
+      });
+    });
+  }
+
+  addEventListenersForLinkOptionNode(id){
+      let opt = document.getElementById("optionId-"+id);
+      let optionElem = opt.getElementsByClassName('outCircleEmpty')[0];
+      if(optionElem!=null && optionElem!=undefined){
+        if(this.optionForLink != -1){
+          let optionBeforeElem = document.getElementById("optionId-"+this.optionForLink).getElementsByClassName('outCircleFull')[0];
+          console.log(optionBeforeElem);
+          optionBeforeElem.classList.remove('outCircleFull');
+          optionBeforeElem.classList.add('outCircleEmpty');
+          this.optionForLink = id;
+          optionElem.classList.remove('outCircleEmpty');
+          optionElem.classList.add('outCircleFull');
+        }else{
+          console.log(id);
+          this.optionForLink = id;
+          optionElem.classList.remove('outCircleEmpty');
+          optionElem.classList.add('outCircleFull');
+        }
+      }else{
+        let optElem = opt.getElementsByClassName('outCircleFull')[0];;
+        if(optElem!=null && optElem!=undefined){
+          this.optionForLink = -1;
+          optElem.classList.remove('outCircleFull');
+          optElem.classList.add('outCircleEmpty');
+        }
+      }
   }
 
   fixTextareaHieght(){

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { OptionService } from 'src/app/services/option.service';
@@ -64,6 +65,33 @@ export class OptionComponent implements OnInit {
       }
     });
     
+  }
+
+  async getLinkOptions(options){
+    let optionlink = [];
+    /*for(let i=0;i<options.length;i++){
+      await this.optionservice.getNextNode(options[i].id).subscribe( async (res:any) => {
+        console.log(res);
+        if(res != null){
+          optionlink.push(res);
+        }
+      },
+      (err: any) => console.log('HTTP Error'));
+    }*/
+    for(const option of options) {
+      console.log(option);
+      await new Promise<void> ((resolve, reject) => {
+        this.optionservice.getNextNode(option.id).subscribe( async (res:any) => {
+          console.log(res);
+          if(res != null){
+            optionlink.push({"optionId": option.id, "nodeId": res.id});
+            resolve();
+          }
+        },
+        (err: any) => resolve());
+      });       
+    }
+    return optionlink;
   }
 
 }

@@ -107,7 +107,9 @@
 
   .example-box {
     cursor: move;
-    position: relative;
+    /*position: relative;*/
+    position: absolute;
+    left: 200px;
     z-index: 1;
     box-sizing: border-box;
     transition: box-shadow 200ms cubic-bezier(0, 0, 0.2, 1);
@@ -155,4 +157,56 @@
 
   .addOption:hover{
     transform: scale(1.05);
+  }
+
+  .inCircleEmpty{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: -14px;
+    background-color: #bbb;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: #fff;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+
+  .outCircleEmpty{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    background-color: #bbb;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: #fff;
+    margin-top: -21px;
+  }
+
+  .inCircleFull{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: -14px;
+    background-color: rgb(255, 141, 27);
+    border-radius: 50%;
+    border-style: solid;
+    border-color: #fff;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+
+  .outCircleFull{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    background-color: rgb(255, 141, 27);
+    border-radius: 50%;
+    border-style: solid;
+    border-color: #fff;
+    margin-top: -21px;
   }

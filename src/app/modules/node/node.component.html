@@ -10,16 +10,19 @@
     <div class="canvasNodes example-boundary">
         <h3 *ngIf="nodeNumber==0" class="middleScreenText">This chatbot doesn't have nodes. Create new one</h3>
         <ng-container *ngIf="nodeNumber>0">
-            <div class="nodeCard example-box" cdkDragBoundary=".example-boundary" cdkDrag *ngFor="let node of nodesOfCollection">
+            <ng-container *ngFor="let node of nodesOfCollection; let i = index">
+            <div class="nodeCard example-box" cdkDragBoundary=".example-boundary" cdkDrag id="nodeId-{{node['id']}}" style="left: calc(200px + calc(350px * {{i}})) !important;">
                 <header class="cardEvent" cdkDragHandle>{{node['title']}}</header>
+                <div *ngIf="!node['firstNode'] && node['refOpt'].length == 0" class="inCircleEmpty"></div>
+                <div *ngIf="!node['firstNode'] && node['refOpt'].length > 0" class="inCircleFull"></div>
                 <div class="content"><!--TRY TODO DISABLED BODY-->
                     <textarea id="testTextArea" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'>{{node['description']}}</textarea>
                     <div class="listOptions">
-                        <div *ngIf="node['title'] == 'Primo nodo'" id="startFArrow" class="listOptionsItem">start</div>
-                        <div *ngIf="node['title'] == 'Primo nodo 2'" id="endFArrow" class="listOptionsItem">end</div>
-                        <div class="listOptionsItem" *ngFor="let optn of node['options']">
+                        <!--<div *ngIf="node['title'] == 'Primo nodo'" id="startFArrow" class="listOptionsItem">start</div>
+                        <div *ngIf="node['title'] == 'Primo nodo 2'" id="endFArrow" class="listOptionsItem">end</div>-->
+                        <div class="listOptionsItem" *ngFor="let optn of node['options']" id="optionId-{{optn['id']}}">
                             <p>{{optn['name']}} {{optn['description']}}</p>
-                            <div></div>
+                            <div class="outCircleEmpty"></div>
                         </div>
                         <div (click)="optionModal(node['id'])" class="listOptionsItem addOption">
                             <p>+ Add Option</p>
@@ -30,6 +33,7 @@
                   <p>This is a draggable div which is created using HTML CSS & JavaScript. You can move this div anywhere on the document or page.</p>-->
                 </div>
             </div>
+            </ng-container>
         </ng-container>
     </div>
 

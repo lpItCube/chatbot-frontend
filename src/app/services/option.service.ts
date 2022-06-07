@@ -14,4 +14,8 @@ export class OptionService {
       return this.http.post(environment.apiURL+"/addOption", body);
     }
 
+    getNextNode(id: number){
+      return this.http.get(environment.apiURL+"/getNextNode?optionId="+id);
+    }
+
 }

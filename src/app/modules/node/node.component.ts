@@ -7,6 +7,7 @@ import { NodeService } from 'src/app/services/node.service';
 import { DragDropModule} from '@angular/cdk/drag-drop';
 
 import LeaderLine from 'leader-line-new';
+import { OptionComponent } from '../option/option.component';
 
 @Component({
   selector: 'app-node',
@@ -18,6 +19,8 @@ export class NodeComponent implements OnInit {
   public id = "";
   public nodeNumber = 0;
   public nodesOfCollection = [];
+  public allOptions = [];
+  public linksOptions = [];
 
   public nodeForm = this.fb.group({
     "title": ["", Validators.required],
@@ -29,7 +32,8 @@ export class NodeComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
-              private nodeservice: NodeService) { }
+              private nodeservice: NodeService,
+              private optionComponent: OptionComponent) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') as any;
@@ -40,24 +44,13 @@ export class NodeComponent implements OnInit {
   ngAfterViewInit(): void{
     this.fixTextareaHieght();
 
-    var checkExist = setInterval(() => {
-      console.log("F");
-      if (document.querySelector("#startFArrow")) {
-        console.log("encontrao");
-        const line1 = new LeaderLine(
-          document.getElementById('startFArrow'),
-          document.getElementById('endFArrow')
-        );
-        const boxes = document.querySelectorAll('.cardEvent');
+    /*const boxes = document.querySelectorAll('.cardEvent');
         boxes.forEach(box => {
           box.addEventListener('mousemove', function() {
-            line1.position();
+            //line1.position();
             console.log('uwu');
           });
-        });
-         clearInterval(checkExist);
-      }
-    }, 100);
+    });*/
 
   }
 
@@ -71,7 +64,44 @@ export class NodeComponent implements OnInit {
       console.log(res);
       this.nodeNumber = res.length;
       this.nodesOfCollection = res;
+      this.allOptions = [];
+      for(let i=0;i<this.nodeNumber;i++){
+        for(let j=0;j<res[i]['options'].length;j++){
+          this.allOptions.push(res[i]['options'][j]);
+        } 
+      }
+      console.log(this.allOptions);
+      this.linksOptions = await this.optionComponent.getLinkOptions(this.allOptions);
+      console.log(this.linksOptions);
+      this.putArrows();
     });
+  }
+
+  putArrows(){
+    for(let option in this.linksOptions){
+      console.log(this.linksOptions[option]);
+      let optionId = 'optionId-'+this.linksOptions[option]['optionId'];
+      let nodeId = 'nodeId-'+this.linksOptions[option]['nodeId'];
+
+        if (document.querySelector("#"+optionId)) {
+          console.log("encontrao");
+          const line1 = new LeaderLine(
+            document.getElementById(optionId),
+            document.getElementById(nodeId)
+          );
+          const boxes = document.querySelectorAll('.cardEvent');
+          boxes.forEach(box => {
+            box.addEventListener('mousemove', function() {
+              line1.position();
+              console.log('uwu');
+            });
+          });
+        }
+      /*const line = new LeaderLine(
+        document.getElementById('optionId-'+option['optionId']),
+        document.getElementById('nodeId-'+option['nodeId'])
+      );*/
+    }
   }
 
   fixTextareaHieght(){
@@ -125,6 +155,10 @@ export class NodeComponent implements OnInit {
       //Assign first_node to the created one
     }
     
+  }
+
+  checkOption(id){
+    console.log(id);
   }
 
 }

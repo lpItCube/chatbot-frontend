@@ -96,6 +96,13 @@ export class NodeComponent implements OnInit {
               console.log('uwu');
             });
           });
+          const container = document.querySelectorAll('.canvasNodes');
+          container.forEach(box => {
+            box.addEventListener('scroll', function() {
+              line1.position();
+              console.log('uwu2');
+            });
+          });
         }
       /*const line = new LeaderLine(
         document.getElementById('optionId-'+option['optionId']),

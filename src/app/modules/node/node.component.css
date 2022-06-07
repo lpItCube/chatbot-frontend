@@ -127,6 +127,8 @@
   .example-boundary {
     max-width: 100%;
     border: dotted #ccc 2px;
+    position: relative;
+    overflow-x: scroll;
   }
 
   .modal-content{

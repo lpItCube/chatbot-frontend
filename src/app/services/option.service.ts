@@ -18,4 +18,17 @@ export class OptionService {
       return this.http.get(environment.apiURL+"/getNextNode?optionId="+id);
     }
 
+    createOptionLink(optionId: number, nodeId: number){
+      let body = "";
+      console.log(optionId);
+      console.log(nodeId);
+      return this.http.post(environment.apiURL+"/createOptionLink?optionId="+optionId+"&nodeId="+nodeId, body, {responseType: 'text'});
+    }
+
+    removeOptionLink(optionId: number, nodeId: number){
+      console.log(optionId);
+      console.log(nodeId);
+      return this.http.delete(environment.apiURL+"/removeOptionLink?optionId="+optionId+"&nodeId="+nodeId, {responseType: 'text'});
+    }
+
 }

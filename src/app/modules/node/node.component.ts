@@ -8,6 +8,7 @@ import { DragDropModule} from '@angular/cdk/drag-drop';
 
 import LeaderLine from 'leader-line-new';
 import { OptionComponent } from '../option/option.component';
+import { OptionService } from 'src/app/services/option.service';
 
 @Component({
   selector: 'app-node',
@@ -38,7 +39,8 @@ export class NodeComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
               private nodeservice: NodeService,
-              private optionComponent: OptionComponent) { }
+              private optionComponent: OptionComponent,
+              private optionService: OptionService) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') as any;
@@ -239,6 +241,10 @@ export class NodeComponent implements OnInit {
           optionElem.classList.add('outCircleFull');*/
 
           //Llamada al backend
+          let myArray = nodeId.split("-");
+          this.optionService.createOptionLink(this.optionForLink, parseInt(myArray[1])).subscribe( async (res:any) => {
+            console.log(res);
+          });
 
           this.optionForLink = -1;
         }
@@ -278,7 +284,10 @@ export class NodeComponent implements OnInit {
               nodeElem.classList.remove('inCircleFull');
               nodeElem.classList.add('inCircleEmpty');
             }
-
+            let myArray = nodeId.split("-");
+            this.optionService.removeOptionLink(id, parseInt(myArray[1])).subscribe( async (res:any) => {
+              console.log(res);
+            });
           }else{
             this.optionForLink = -1;
           }

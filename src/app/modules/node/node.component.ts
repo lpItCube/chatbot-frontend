@@ -58,7 +58,6 @@ export class NodeComponent implements OnInit {
             console.log('uwu');
           });
     });*/
-
   }
 
   optionModal(nodeID: any){
@@ -82,6 +81,21 @@ export class NodeComponent implements OnInit {
       console.log(this.linksOptions);
       await this.putArrows();
       this.addClickNodeConnection();
+      const boxes = document.querySelectorAll('.cardEvent');
+        boxes.forEach(box => {
+          box.addEventListener('mousemove', () => {
+            //line1.position();
+            this.positionLines();
+        });
+      });
+
+      const container = document.querySelectorAll('.canvasNodes');
+        container.forEach(box => {
+          box.addEventListener('scroll', () => {
+            //line1.position();
+            this.positionLines();
+        });
+      });
     });
   }
 
@@ -104,48 +118,7 @@ export class NodeComponent implements OnInit {
           let outOptionforChange = document.getElementById(optionId).getElementsByClassName('outCircleEmpty')[0];
           outOptionforChange.classList.remove('outCircleEmpty');
           outOptionforChange.classList.add('outCircleFull');
-
-          //CAMBIAR POR CLICK EN LA OPCION
-          /*const onClick = () => {
-            let elemNode = document.getElementById(nodeId);
-            let elemOption = document.getElementById(optionId).getElementsByClassName('outCircleFull')[0];
-
-            document.getElementById(nodeId).removeEventListener('click', onClick);
-
-            if(elemNode != null && elemNode != undefined){
-              //if(line1 != undefined){
-                //line1.remove();
-                this.deleteLine(nodeId);
-              //}
-              
-              elemNode.classList.remove('inCircleFull');
-              elemNode.classList.add('inCircleEmpty');
-              elemOption.classList.remove('outCircleFull');
-              elemOption.classList.add('outCircleEmpty');
-              //remove link in backend between node and option
-              
-            }
-            this.addClickNodeConnection();
-          };
-
-          document.getElementById(nodeId).addEventListener('click', onClick);*/
-
-          const boxes = document.querySelectorAll('.cardEvent');
-          boxes.forEach(box => {
-            box.addEventListener('mousemove', () => {
-              //line1.position();
-              this.positionLines();
-            });
-          });
-
-          const container = document.querySelectorAll('.canvasNodes');
-          container.forEach(box => {
-            box.addEventListener('scroll', () => {
-              //line1.position();
-              this.positionLines();
-            });
-          });
-
+          
         }
     }
   }

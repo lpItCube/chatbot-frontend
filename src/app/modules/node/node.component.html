@@ -13,8 +13,8 @@
             <ng-container *ngFor="let node of nodesOfCollection; let i = index">
             <div class="nodeCard example-box" cdkDragBoundary=".example-boundary" cdkDrag style="left: calc(200px + calc(350px * {{i}})) !important;"><!--id="nodeId-{{node['id']}}"-->
                 <header class="cardEvent" cdkDragHandle>{{node['title']}}</header>
-                <div *ngIf="!node['firstNode'] && node['refOpt'].length == 0" id="nodeId-{{node['id']}}" class="inCircleEmpty"><p>x</p></div>
-                <div *ngIf="!node['firstNode'] && node['refOpt'].length > 0" id="nodeId-{{node['id']}}" class="inCircleFull"><p>x</p></div>
+                <div *ngIf="!node['firstNode'] && node['refOpt'].length == 0" id="nodeId-{{node['id']}}" class="circleNode inCircleEmpty"></div>
+                <div *ngIf="!node['firstNode'] && node['refOpt'].length > 0" id="nodeId-{{node['id']}}" class="circleNode inCircleFull"></div>
                 <div class="content"><!--TRY TODO DISABLED BODY-->
                     <textarea id="testTextArea" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'>{{node['description']}}</textarea>
                     <div class="listOptions">
@@ -22,7 +22,7 @@
                         <div *ngIf="node['title'] == 'Primo nodo 2'" id="endFArrow" class="listOptionsItem">end</div>-->
                         <div class="listOptionsItem" *ngFor="let optn of node['options']" id="optionId-{{optn['id']}}" (click)="addEventListenersForLinkOptionNode(optn['id'])">
                             <p>{{optn['name']}} {{optn['description']}}</p>
-                            <div class="outCircleEmpty"><p>+</p></div>
+                            <div class="circleOption outCircleEmpty"><p>+</p></div>
                         </div>
                         <div (click)="optionModal(node['id'])" class="listOptionsItem addOption">
                             <p>+ Add Option</p>

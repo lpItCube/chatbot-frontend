@@ -103,7 +103,8 @@ export class NodeComponent implements OnInit {
           outOptionforChange.classList.remove('outCircleEmpty');
           outOptionforChange.classList.add('outCircleFull');
 
-          const onClick = () => {
+          //CAMBIAR POR CLICK EN LA OPCION
+          /*const onClick = () => {
             let elemNode = document.getElementById(nodeId);
             let elemOption = document.getElementById(optionId).getElementsByClassName('outCircleFull')[0];
 
@@ -125,7 +126,7 @@ export class NodeComponent implements OnInit {
             this.addClickNodeConnection();
           };
 
-          document.getElementById(nodeId).addEventListener('click', onClick);
+          document.getElementById(nodeId).addEventListener('click', onClick);*/
 
           const boxes = document.querySelectorAll('.cardEvent');
           boxes.forEach(box => {
@@ -154,9 +155,9 @@ export class NodeComponent implements OnInit {
     });
   }
 
-  deleteLine(nodeId){
+  deleteLine(nodeId, optionId){
     this.allLines.forEach((line, index, arr) => {
-      if(line.nodeId == nodeId){
+      if(line.nodeId == nodeId && line.optionId == optionId){
         line.line1.remove();
         arr.splice(index, 1);
       }
@@ -176,11 +177,47 @@ export class NodeComponent implements OnInit {
     return existss;
   }
 
+  checkIfLineExistsOnlyOptionID(optionId){
+    let existss = false;
+    console.log(optionId);
+    this.allLines.forEach(line => {
+      console.log(line);
+      if(optionId == line.optionId){
+        existss = true;
+      }
+    });
+    return existss;
+  }
+
+  checkIfLineExistsOnlyNodeID(nodeId){
+    let existss = false;
+    console.log(nodeId);
+    this.allLines.forEach(line => {
+      console.log(line);
+      if(nodeId == line.nodeId){
+        existss = true;
+      }
+    });
+    return existss;
+  }
+
+  getConnectionNodeID(optionId){
+    let nodeId = "";
+    console.log(optionId);
+    this.allLines.forEach(line => {
+      console.log(line);
+      if(optionId == line.optionId){
+        nodeId = line.nodeId;
+      }
+    });
+    return nodeId;
+  }
+
   addClickNodeConnection(){
-    const inEmptyNodes = document.querySelectorAll('.inCircleEmpty');
+    const inEmptyNodes = document.querySelectorAll('.circleNode');
     inEmptyNodes.forEach(node => {
       node.addEventListener('click', () => {
-        console.log('hahahah clickkkkkk');
+        console.log('hahahah clickkkkkk node');
         //revisar el borrado si tienes un optionforlink != -1
         if(this.optionForLink != -1 && !this.checkIfLineExists(node.id, 'optionId-'+this.optionForLink)){
           console.log("linked hahahaha")
@@ -228,11 +265,27 @@ export class NodeComponent implements OnInit {
           optionElem.classList.add('outCircleFull');
         }
       }else{
-        let optElem = opt.getElementsByClassName('outCircleFull')[0];;
+        let optElem = opt.getElementsByClassName('outCircleFull')[0];
         if(optElem!=null && optElem!=undefined){
-          this.optionForLink = -1;
+
+          if(this.checkIfLineExistsOnlyOptionID("optionId-"+id)){
+            //DELETE FUNCION BACKEND
+            let nodeId = this.getConnectionNodeID("optionId-"+id);
+            this.deleteLine(nodeId, "optionId-"+id);
+            console.log(this.checkIfLineExistsOnlyNodeID(nodeId));
+            if(!this.checkIfLineExistsOnlyNodeID(nodeId)){
+              let nodeElem = document.getElementById(nodeId);
+              nodeElem.classList.remove('inCircleFull');
+              nodeElem.classList.add('inCircleEmpty');
+            }
+
+          }else{
+            this.optionForLink = -1;
+          }
+
           optElem.classList.remove('outCircleFull');
           optElem.classList.add('outCircleEmpty');
+
         }
       }
   }

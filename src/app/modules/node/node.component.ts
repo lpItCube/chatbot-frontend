@@ -97,7 +97,7 @@ export class NodeComponent implements OnInit {
             document.getElementById(nodeId)
           );
 
-          this.allLines.push({'line1': line1, 'nodeId': nodeId});
+          this.allLines.push({'line1': line1, 'nodeId': nodeId, 'optionId': optionId});
 
           let outOptionforChange = document.getElementById(optionId).getElementsByClassName('outCircleEmpty')[0];
           outOptionforChange.classList.remove('outCircleEmpty');
@@ -163,10 +163,13 @@ export class NodeComponent implements OnInit {
     });
   }
 
-  checkIfLineExists(nodeId){
+  checkIfLineExists(nodeId, optionId){
     let existss = false;
+    console.log(nodeId);
+    console.log(optionId);
     this.allLines.forEach(line => {
-      if(line.nodeId == nodeId){
+      console.log(line);
+      if(line.nodeId == nodeId && optionId == line.optionId){
         existss = true;
       }
     });
@@ -179,8 +182,8 @@ export class NodeComponent implements OnInit {
       node.addEventListener('click', () => {
         console.log('hahahah clickkkkkk');
         //revisar el borrado si tienes un optionforlink != -1
-        if(this.optionForLink != -1 && !this.checkIfLineExists(node.id)){
-
+        if(this.optionForLink != -1 && !this.checkIfLineExists(node.id, 'optionId-'+this.optionForLink)){
+          console.log("linked hahahaha")
           let optionId = 'optionId-'+this.optionForLink;
           let nodeId = node.id;
           console.log(optionId);
@@ -190,7 +193,7 @@ export class NodeComponent implements OnInit {
             document.getElementById(optionId),
             document.getElementById(nodeId)
           );
-          this.allLines.push({'line1': line1, 'nodeId': nodeId});
+          this.allLines.push({'line1': line1, 'nodeId': nodeId, 'optionId': optionId});
 
           document.getElementById(nodeId).classList.remove('inCircleEmpty');
           document.getElementById(nodeId).classList.add('inCircleFull');

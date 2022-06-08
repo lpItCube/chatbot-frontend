@@ -313,6 +313,8 @@ export class NodeComponent implements OnInit {
       if(res['id']){
         console.log("ok");
         this.nodeForm.reset();
+        this.closeModal();
+        window.location.reload();
         //window.location.href = ('/');
       }else{
         console.log("error");

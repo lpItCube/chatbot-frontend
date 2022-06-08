@@ -59,6 +59,7 @@ export class OptionComponent implements OnInit {
         console.log("ok");
         this.optionForm.reset();
         this.closeModal();
+        window.location.reload();
         //window.location.href = ('/');
       }else{
         console.log("error");

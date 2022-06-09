@@ -243,3 +243,26 @@
     visibility: visible;
     opacity: 1;
   }
+
+  .editdeleteOption{
+    opacity: 0;
+    padding: 5px 10px 5px 5px;
+    pointer-events: none;
+    position: absolute;
+    right: calc(100% - 10px);
+    top: -5px;
+    transition: opacity .2s,transform .2s;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background-color: #bbb;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: #fff;
+    margin-top: -21px;
+  }
+
+  .listOptionsItem:hover > .editdeleteOption{
+    opacity: 1;
+    right: 40px;
+  }

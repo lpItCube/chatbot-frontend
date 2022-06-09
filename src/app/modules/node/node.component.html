@@ -63,9 +63,12 @@
                         <textarea formControlName="description" required></textarea>
                     </p>
                     <p>
-                        <label>Type:</label>
-                        <input type="text" formControlName="type" required>
-                    </p>
+                        <label for="types">Type:</label>
+                        <select name="types" id="types">
+                            <option value="volvo">Message</option>
+                            <option value="saab">Question</option>
+                        </select>       
+                   </p>
                     <p>
                         <button type="submit" [disabled]="!nodeForm.valid">Submit</button>
                     </p>

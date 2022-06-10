@@ -14,6 +14,7 @@ export class PreviewComponent implements OnInit {
   public id = "";
   public nodesOfCollection = [];
   public currentNode = 0;
+  public btn = document.querySelector("button");
 
   constructor(private route: ActivatedRoute,
               private nodeservice: NodeService) { }
@@ -23,6 +24,7 @@ export class PreviewComponent implements OnInit {
     console.log(this.id);
     this.currentNode = 0;
     this.getNodes();
+
   }
 
   getNodes(){
@@ -31,29 +33,67 @@ export class PreviewComponent implements OnInit {
       console.log(res);
       this.nodesOfCollection = res;
       this.createQuestion();
-      /*this.allOptions = [];
-      for(let i=0;i<this.nodeNumber;i++){
-        for(let j=0;j<res[i]['options'].length;j++){
-          this.allOptions.push(res[i]['options'][j]);
-        } 
-      }
-      console.log(this.allOptions);
-      this.linksOptions = await this.optionComponent.getLinkOptions(this.allOptions);
-      console.log(this.linksOptions);*/
+
     });
   }
 
   createQuestion(){
     console.log(this.nodesOfCollection[this.currentNode].description);
+
     if(this.nodesOfCollection[this.currentNode].type == "Normale"){
 
+
+
     }else if(this.nodesOfCollection[this.currentNode].type == "input"){
+    }
+
+    var container = document.getElementById("container");
+
+    var answerDiv = document.createElement("div");
+        answerDiv.setAttribute('class', 'leftMessage');
+
+    var content = `
+        <img src="../../../assets/imgs/chatbot_default.png">
+        <div class="content">
+            <div class="message">
+                <p>Prueba de mensaje del bot con opciones</p>
+            </div>
+            <div id="options" class="options">
+                <p>Choose an option</p>
+          
+            </div>
+        </div>`;
+
+    answerDiv.innerHTML = content;
+
+    container.appendChild(answerDiv);
+
+    var options = document.getElementById("options");
+
+
+    for(var i = 0; i < this.nodesOfCollection[this.currentNode].options.length; i++){
+
+      var option = this.nodesOfCollection[this.currentNode].options[i];
+
+      var button = document.createElement("button");
+      button.setAttribute('class', 'previewButton');
+
+      button.innerHTML = option.description;
+
+      button.onclick = () => {
+        this.createAnswer(option.description)
+      };
+
+      options.appendChild(button);
 
     }
+
     this.currentNode++;
+
   }
 
   createAnswer(text){
+
 
     var container = document.getElementById("container");
 
@@ -76,6 +116,7 @@ export class PreviewComponent implements OnInit {
 
     options.parentNode.removeChild(options);
 
+    this.createQuestion();
   }
 
 }

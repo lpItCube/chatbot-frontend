@@ -40,12 +40,12 @@ export class PreviewComponent implements OnInit {
   createQuestion(){
     console.log(this.nodesOfCollection[this.currentNode].description);
 
-    if(this.nodesOfCollection[this.currentNode].type == "Normale"){
+    /*if(this.nodesOfCollection[this.currentNode].type == "Normale"){
 
 
 
     }else if(this.nodesOfCollection[this.currentNode].type == "input"){
-    }
+    }*/
 
     var container = document.getElementById("container");
 
@@ -56,12 +56,13 @@ export class PreviewComponent implements OnInit {
         <img src="../../../assets/imgs/chatbot_default.png">
         <div class="content">
             <div class="message">
-                <p>Prueba de mensaje del bot con opciones</p>
+                <p>`+this.nodesOfCollection[this.currentNode].description+`</p>
             </div>
-            <div id="options" class="options">
-                <p>Choose an option</p>
+            <div id="options" class="options">`;
+    if(this.nodesOfCollection[this.currentNode].options.length != 0)
+      content += `<p>Choose an option</p>`;
           
-            </div>
+    content += `</div>
         </div>`;
 
     answerDiv.innerHTML = content;
@@ -117,6 +118,10 @@ export class PreviewComponent implements OnInit {
     options.parentNode.removeChild(options);
 
     this.createQuestion();
+  }
+
+  goEdit(){
+    window.location.href = ('/edit/'+this.id);
   }
 
 }

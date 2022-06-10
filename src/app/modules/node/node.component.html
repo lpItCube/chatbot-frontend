@@ -7,6 +7,11 @@
         <p>Create new Node</p>
     </div>
 
+    <div class="floatRight">
+        <a class="buttonCreate" (click)="goPreview()">o</a>
+        <p>See preview</p>
+    </div>
+
     <div class="canvasNodes example-boundary">
         <h3 *ngIf="nodeNumber==0" class="middleScreenText">This chatbot doesn't have nodes. Create new one</h3>
         <ng-container *ngIf="nodeNumber>0">

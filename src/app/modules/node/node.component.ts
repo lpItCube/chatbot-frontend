@@ -331,4 +331,8 @@ export class NodeComponent implements OnInit {
     console.log(id);
   }
 
+  goPreview(){
+    window.location.href = ('/preview/'+this.id);
+  }
+
 }

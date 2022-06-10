@@ -25,7 +25,12 @@
     display: flex;
 }
 
-.floatLeft > p{
+.floatRight{
+  float: right;
+  display: flex;
+}
+
+.floatLeft > p, .floatRight > p{
     margin-left: 10px;
 }
 
@@ -261,8 +266,9 @@
     border-color: #fff;
     margin-top: -21px;
   }
-
+/*
   .listOptionsItem:hover > .editdeleteOption{
     opacity: 1;
     right: 40px;
   }
+  */

@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { OptionComponent } from './modules/option/option.component';
+import { PreviewComponent } from './modules/preview/preview.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { OptionComponent } from './modules/option/option.component';
     CollectionComponent,
     CollectionsComponent,
     NodeComponent,
-    OptionComponent
+    OptionComponent,
+    PreviewComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +32,7 @@ import { OptionComponent } from './modules/option/option.component';
     DragDropModule,
     RouterModule.forRoot([
       {path: 'edit/:id', component: NodeComponent},
+      {path: 'preview/:id', component: PreviewComponent},
       {path: '', component: CollectionsComponent, pathMatch: 'full'},
       {path: '**', redirectTo: ''}
     ]),

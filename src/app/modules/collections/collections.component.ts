@@ -29,7 +29,6 @@ export class CollectionsComponent implements OnInit {
   getCollections(){
 
     this.collectionsService.getCollections().subscribe( async (res:any) => {
-      console.log(res);
       this.collectionsList = res;
     });
 

@@ -44,20 +44,12 @@ export class NodeComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') as any;
-    console.log(this.id);
     this.getNodes();
   }
 
   ngAfterViewInit(): void{
     this.fixTextareaHieght();
 
-    /*const boxes = document.querySelectorAll('.cardEvent');
-        boxes.forEach(box => {
-          box.addEventListener('mousemove', function() {
-            //line1.position();
-            console.log('uwu');
-          });
-    });*/
   }
 
   optionModal(nodeID: any){
@@ -65,9 +57,9 @@ export class NodeComponent implements OnInit {
   }
 
   getNodes(){
-    console.log(this.id);
+
     this.nodeservice.getNodesCollID(this.id).subscribe( async (res:any) => {
-      console.log(res);
+
       this.nodeNumber = res.length;
       this.nodesOfCollection = res;
       this.allOptions = [];
@@ -76,9 +68,8 @@ export class NodeComponent implements OnInit {
           this.allOptions.push(res[i]['options'][j]);
         } 
       }
-      console.log(this.allOptions);
+
       this.linksOptions = await this.optionComponent.getLinkOptions(this.allOptions);
-      console.log(this.linksOptions);
       await this.putArrows();
       this.addClickNodeConnection();
       const boxes = document.querySelectorAll('.cardEvent');
@@ -102,12 +93,12 @@ export class NodeComponent implements OnInit {
   putArrows(){
     this.allLines = [];
     for(let option in this.linksOptions){
-      console.log(this.linksOptions[option]);
+
       let optionId = 'optionId-'+this.linksOptions[option]['optionId'];
       let nodeId = 'nodeId-'+this.linksOptions[option]['nodeId'];
 
         if (document.querySelector("#"+optionId)) {
-          console.log("encontrao");
+
           const line1 = new LeaderLine(
             document.getElementById(optionId),
             document.getElementById(nodeId)
@@ -124,7 +115,7 @@ export class NodeComponent implements OnInit {
   }
 
   positionLines(){
-    console.log(this.allLines);
+
     this.allLines.forEach(line => {
       line.line1.position();
     });
@@ -141,10 +132,8 @@ export class NodeComponent implements OnInit {
 
   checkIfLineExists(nodeId, optionId){
     let existss = false;
-    console.log(nodeId);
-    console.log(optionId);
     this.allLines.forEach(line => {
-      console.log(line);
+
       if(line.nodeId == nodeId && optionId == line.optionId){
         existss = true;
       }
@@ -153,10 +142,10 @@ export class NodeComponent implements OnInit {
   }
 
   checkIfLineExistsOnlyOptionID(optionId){
+
     let existss = false;
-    console.log(optionId);
+
     this.allLines.forEach(line => {
-      console.log(line);
       if(optionId == line.optionId){
         existss = true;
       }
@@ -165,10 +154,10 @@ export class NodeComponent implements OnInit {
   }
 
   checkIfLineExistsOnlyNodeID(nodeId){
+
     let existss = false;
-    console.log(nodeId);
+
     this.allLines.forEach(line => {
-      console.log(line);
       if(nodeId == line.nodeId){
         existss = true;
       }
@@ -177,10 +166,11 @@ export class NodeComponent implements OnInit {
   }
 
   getConnectionNodeID(optionId){
+
     let nodeId = "";
-    console.log(optionId);
+
     this.allLines.forEach(line => {
-      console.log(line);
+
       if(optionId == line.optionId){
         nodeId = line.nodeId;
       }
@@ -192,14 +182,14 @@ export class NodeComponent implements OnInit {
     const inEmptyNodes = document.querySelectorAll('.circleNode');
     inEmptyNodes.forEach(node => {
       node.addEventListener('click', () => {
-        console.log('hahahah clickkkkkk node');
+
         //revisar el borrado si tienes un optionforlink != -1
         if(this.optionForLink != -1 && !this.checkIfLineExists(node.id, 'optionId-'+this.optionForLink)){
-          console.log("linked hahahaha")
+
           let optionId = 'optionId-'+this.optionForLink;
           let nodeId = node.id;
-          console.log(optionId);
-          console.log(nodeId);
+       
+          
 
           const line1 = new LeaderLine(
             document.getElementById(optionId),
@@ -216,7 +206,7 @@ export class NodeComponent implements OnInit {
           //Llamada al backend
           let myArray = nodeId.split("-");
           this.optionService.createOptionLink(this.optionForLink, parseInt(myArray[1])).subscribe( async (res:any) => {
-            console.log(res);
+
           });
 
           this.optionForLink = -1;
@@ -230,15 +220,16 @@ export class NodeComponent implements OnInit {
       let optionElem = opt.getElementsByClassName('outCircleEmpty')[0];
       if(optionElem!=null && optionElem!=undefined){
         if(this.optionForLink != -1){
+
           let optionBeforeElem = document.getElementById("optionId-"+this.optionForLink).getElementsByClassName('outCircleFull')[0];
-          console.log(optionBeforeElem);
+
           optionBeforeElem.classList.remove('outCircleFull');
           optionBeforeElem.classList.add('outCircleEmpty');
           this.optionForLink = id;
           optionElem.classList.remove('outCircleEmpty');
           optionElem.classList.add('outCircleFull');
         }else{
-          console.log(id);
+
           this.optionForLink = id;
           optionElem.classList.remove('outCircleEmpty');
           optionElem.classList.add('outCircleFull');
@@ -251,7 +242,7 @@ export class NodeComponent implements OnInit {
             //DELETE FUNCION BACKEND
             let nodeId = this.getConnectionNodeID("optionId-"+id);
             this.deleteLine(nodeId, "optionId-"+id);
-            console.log(this.checkIfLineExistsOnlyNodeID(nodeId));
+
             if(!this.checkIfLineExistsOnlyNodeID(nodeId)){
               let nodeElem = document.getElementById(nodeId);
               nodeElem.classList.remove('inCircleFull');
@@ -259,7 +250,7 @@ export class NodeComponent implements OnInit {
             }
             let myArray = nodeId.split("-");
             this.optionService.removeOptionLink(id, parseInt(myArray[1])).subscribe( async (res:any) => {
-              console.log(res);
+
             });
           }else{
             this.optionForLink = -1;
@@ -273,10 +264,8 @@ export class NodeComponent implements OnInit {
   }
 
   fixTextareaHieght(){
-    console.log("hola");
+
     let textare = document.getElementById('testTextArea');
-    console.log(textare);
-    //oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
   }
 
   showModalCreateNode(){
@@ -290,11 +279,8 @@ export class NodeComponent implements OnInit {
   }
 
   onSubmitNode() {
-    console.log("uwu");
 
     if (this.nodeForm.invalid) { return; }
-
-    console.log(this.nodeForm.value);
 
     this.nodeForm.value['collectionId'] = parseInt(this.id);
 
@@ -309,9 +295,9 @@ export class NodeComponent implements OnInit {
     this.nodeForm.value['refOptIds'] = null;
 
     this.nodeservice.createNode(this.nodeForm.value).subscribe( async (res:any) => {
-      console.log(res);
+
       if(res['id']){
-        console.log("ok");
+
         this.nodeForm.reset();
         this.closeModal();
         window.location.reload();

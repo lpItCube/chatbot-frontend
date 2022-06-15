@@ -21,16 +21,15 @@ export class PreviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') as any;
-    console.log(this.id);
     this.currentNode = 0;
     this.getNodes();
 
   }
 
   getNodes(){
-    console.log(this.id);
+
     this.nodeservice.getNodesCollID(this.id).subscribe( async (res:any) => {
-      console.log(res);
+
       this.nodesOfCollection = res;
       this.createQuestion();
 
@@ -38,14 +37,6 @@ export class PreviewComponent implements OnInit {
   }
 
   createQuestion(){
-    console.log(this.nodesOfCollection[this.currentNode].description);
-
-    /*if(this.nodesOfCollection[this.currentNode].type == "Normale"){
-
-
-
-    }else if(this.nodesOfCollection[this.currentNode].type == "input"){
-    }*/
 
     var container = document.getElementById("container");
 

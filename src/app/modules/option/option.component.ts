@@ -46,15 +46,13 @@ export class OptionComponent implements OnInit {
   }
 
   onSubmitOption() {
-    console.log("uwu");
 
     if (this.optionForm.invalid) { return; }
 
-    console.log(this.optionForm.value);
     this.optionForm.value['nodeId'] = this.nodeId;
 
     this.optionservice.createOption(this.optionForm.value).subscribe( async (res:any) => {
-      console.log(res);
+
       if(res['id']){
         console.log("ok");
         this.optionForm.reset();
@@ -70,28 +68,25 @@ export class OptionComponent implements OnInit {
 
   async getLinkOptions(options){
     let optionlink = [];
-    /*for(let i=0;i<options.length;i++){
-      await this.optionservice.getNextNode(options[i].id).subscribe( async (res:any) => {
-        console.log(res);
-        if(res != null){
-          optionlink.push(res);
-        }
-      },
-      (err: any) => console.log('HTTP Error'));
-    }*/
-    for(const option of options) {
-      console.log(option);
+
+    for(var option of options) {
       await new Promise<void> ((resolve, reject) => {
         this.optionservice.getNextNode(option.id).subscribe( async (res:any) => {
-          console.log(res);
+          
+
           if(res != null){
             optionlink.push({"optionId": option.id, "nodeId": res.id});
             resolve();
           }
+
+          resolve();
+
+
         },
         (err: any) => resolve());
       });       
     }
+
     return optionlink;
   }
 

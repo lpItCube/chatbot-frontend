@@ -29,14 +29,11 @@ export class CollectionComponent implements OnInit {
   }
 
   onSubmitCollection() {
-    console.log("uwu");
 
     if (this.collectionForm.invalid) { return; }
 
-    console.log(this.collectionForm.value);
 
     this.collectionService.createCollection(this.collectionForm.value).subscribe( async (res:any) => {
-      console.log(res);
       if(res['id']){
         console.log("ok");
         this.collectionForm.reset();

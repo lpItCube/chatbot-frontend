@@ -249,13 +249,12 @@
     opacity: 1;
   }
 
-  .editdeleteOption{
+  .deleteOption{
     opacity: 0;
-    padding: 5px 10px 5px 5px;
-    pointer-events: none;
+    padding: 5px 5px 5px 5px;
     position: absolute;
-    right: calc(100% - 10px);
-    top: -5px;
+    right: calc(100% - 25px);
+    top: 5px;
     transition: opacity .2s,transform .2s;
     width: 20px;
     height: 20px;
@@ -263,9 +262,53 @@
     background-color: #bbb;
     border-radius: 50%;
     border-style: solid;
+    align-items: center;
     border-color: #fff;
     margin-top: -21px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    align-content: center;
   }
+
+  .editOption{
+      opacity: 0;
+      padding: 5px 5px 5px 5px;
+      position: absolute;
+      left: calc(100% - 25px);
+      top: 5px;
+      transition: opacity .2s,transform .2s;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      background-color: #bbb;
+      border-radius: 50%;
+      border-style: solid;
+      border-color: #fff;
+      margin-top: -21px;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      align-content: center;
+  
+  }
+
+
+  .nodeOption:hover{
+
+    background-color: beige;
+    border: 2px solid green;
+    opacity: 1;
+
+  }
+
+.cardEvent:hover~.nodeOption{
+
+  opacity: 1;
+
+}
 /*
   .listOptionsItem:hover > .editdeleteOption{
     opacity: 1;

@@ -18,4 +18,12 @@ export class NodeService {
       return this.http.get(environment.apiURL+"/getNodes?collectionId="+id);
     }
 
+    getFirstNode(id: any){
+      return this.http.get(environment.apiURL+"/getFirstNode?collectionId="+id);
+    }
+
+    getNextNode(id: any){
+      return this.http.get(environment.apiURL+"/getNextNode?optionId="+id);
+    }
+
 }

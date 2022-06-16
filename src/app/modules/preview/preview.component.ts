@@ -18,16 +18,14 @@ export class PreviewComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private nodeservice: NodeService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id') as any;
     this.currentNode = 0;
-    console.log("Ciao")
     this.getFirstNode();
   }
 
   getFirstNode() {
     this.nodeservice.getFirstNode(this.id).subscribe( async (res:any) => {
-      console.log("temo", res)
       this.currentNode = res
       this.createQuestion()
     });
@@ -41,18 +39,9 @@ export class PreviewComponent implements OnInit {
   }
 
   createQuestion(){
-    console.log("temo entri prima qua")
-
-    /*if(this.nodesOfCollection[this.currentNode].type == "Normale"){
-
-    }else if(this.nodesOfCollection[this.currentNode].type == "input"){
-    }*/
-
     var container = document.getElementById("container");
-
     var answerDiv = document.createElement("div");
         answerDiv.setAttribute('class', 'leftMessage');
-
     var content = `
         <img src="../../../assets/imgs/chatbot_default.png">
         <div class="content">
@@ -60,32 +49,30 @@ export class PreviewComponent implements OnInit {
                 <p>`+this.currentNode.description+`</p>
             </div>
             <div id="options" class="options">`;
+
     if(this.currentNode.options.length != 0)
       content += `<p>Choose an option</p>`;
-          
     content += `</div>
         </div>`;
 
     answerDiv.innerHTML = content;
 
     container.appendChild(answerDiv);
-
     var options = document.getElementById("options");
 
-
     for(var i = 0; i < this.currentNode.options.length; i++){
-
       var option = this.currentNode.options[i];
-
       var button = document.createElement("button");
       button.setAttribute('class', 'previewButton');
+      button.setAttribute('id', option.id)
 
       button.innerHTML = option.description;
 
       console.log("optionesima", option.id)
 
-      button.onclick = () => {
-        this.createAnswer(option.description, option.id)
+      button.onclick = (ev) => {
+        let clickedOpt = (ev.target as HTMLElement)
+        this.createAnswer(clickedOpt.textContent, clickedOpt.id)
       };
 
       options.appendChild(button);
@@ -95,51 +82,49 @@ export class PreviewComponent implements OnInit {
   }
 
   async createAnswer(text, optionId){
-
-    console.log("optionID", optionId)
-
-    // await new Promise<void>((resolve, reject) => {
-    //   await this.getNextNode(optionId)
-    //   if(res != null) {
-    //     resolve()
-    //   }
-    // })
-
+    console.log("OptionId: ", optionId)
     await new Promise<void> ((resolve, reject) => {
+
       this.nodeservice.getNextNode(optionId).subscribe( async (res:any) => {
         if(res != null){
           this.currentNode = res
           resolve();
         }
-        else return
+        else this.removeOptionHtml()
+        return
         }, (err: any) => reject());
-      }).then(res => {
+        
+      }).then(() => {
       
-      var container = document.getElementById("container");
+        var container = document.getElementById("container");
 
-      var answerDiv = document.createElement("div");
-          answerDiv.setAttribute('class', 'rightMessage');
+        var answerDiv = document.createElement("div");
+            answerDiv.setAttribute('class', 'rightMessage');
 
-      var answer = document.createElement("div");
-          answer.setAttribute('class', 'message');
+        var answer = document.createElement("div");
+            answer.setAttribute('class', 'message');
 
-      var p = document.createElement("p")
-      var texto = document.createTextNode(text);
+        var p = document.createElement("p")
+        var texto = document.createTextNode(text);
 
-      p.appendChild(texto);
-      answer.appendChild(p);
-      answerDiv.appendChild(answer);
-      container.appendChild(answerDiv);
+        p.appendChild(texto);
+        answer.appendChild(p);
+        answerDiv.appendChild(answer);
+        container.appendChild(answerDiv);
 
 
-      var options = document.getElementById("options");
+        this.removeOptionHtml()
 
-      options.parentNode.removeChild(options);
-
-      this.createQuestion();
+        this.createQuestion();
     })
 
     
+  }
+
+  removeOptionHtml() {
+    var options = document.getElementById("options");
+
+    options.parentNode.removeChild(options);
   }
 
   goEdit(){

@@ -21,11 +21,11 @@
                 <header class="cardEvent" cdkDragHandle>{{node['title']}}
                 
                 </header>
-                <div class="deleteOption nodeOption">
+                <div (click)="showModalDeleteNode(node['id'])" class="deleteOption nodeOption">
                     <span><i class="fa-solid fa-trash"></i></span>
                 </div>
-                <div class="editOption nodeOption">
-                    <span><i class="fa-solid fa-pen"></i></span>
+                <div (click)="showModalEditNode(node['id'])" class="editOption nodeOption">
+                    <span><i  class="fa-solid fa-pen"></i></span>
                 </div>
                 <div *ngIf="!node['firstNode'] && node['refOpt'].length == 0" id="nodeId-{{node['id']}}" class="circleNode inCircleEmpty"></div>
                 <div *ngIf="!node['firstNode'] && node['refOpt'].length > 0" id="nodeId-{{node['id']}}" class="circleNode inCircleFull"></div>
@@ -57,10 +57,10 @@
 
         <!-- Modal content -->
         <div class="modal-content">
-            <span (click)="closeModal()" class="close">&times;</span>
+            <span (click)="closeModal('NewNodeModal')" class="close">&times;</span>
             <section>
                 <h1>Create new Node:</h1>
-                <form [formGroup]="nodeForm" (ngSubmit)="onSubmitNode()">
+                <form [formGroup]="nodeForm" (ngSubmit)="onSubmitNode('NewNodeModal')">
                     <!--<p>
                         <label>Data:</label>
                         <textarea formControlName="data" required></textarea>
@@ -89,6 +89,67 @@
         </div>
     
     </div>
+
+
+        <!-- The Modal -->
+        <div id="EditNodeModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span (click)="closeModal('EditNodeModal')" class="close">&times;</span>
+                <section>
+                    <h1 style="text-align: center;">Edit Node</h1>
+                    <form [formGroup]="nodeForm" (ngSubmit)="onSubmitNode('EditNodeModal')">
+                        <!--<p>
+                            <label>Data:</label>
+                            <textarea formControlName="data" required></textarea>
+                        </p>-->
+                        <p>
+                            <label>Title:</label>
+                            <input type="text" formControlName="title" required>
+                        </p>
+                        <p>
+                            <label>Description:</label>
+                            <textarea formControlName="description" required></textarea>
+                        </p>
+                        <p>
+                            <label for="type">Type:</label>
+                            <select formControlName="type" required name="type" id="type">
+                                <option value="volvo">Message</option>
+                                <option value="saab">Default Options</option>
+                                <option value="volvo">Input Options</option> 
+                            </select>       
+                       </p>
+                        <p>
+                            <button type="submit" [disabled]="!nodeForm.valid">Submit</button>
+                        </p>
+                    </form>
+                </section>
+            </div>
+        
+        </div>
+
+         <!-- The Modal -->
+         <div id="DeleteNodeModal" class="modal">
+
+            <!-- Modal content -->
+            <div style="width: 30%;" class="modal-content">
+                <span (click)="closeModal('DeleteNodeModal')" class="close">&times;</span>
+                <section>
+                    <h1 style="text-align: center;">You are about to delete a node. Are you sure?</h1>
+                    <form class="deleteForm" [formGroup]="nodeForm" >
+
+                        <p>
+                            <button (click)="closeModal('DeleteNodeModal')" class="cancel-button" >No</button>
+                        </p>
+                        <p>
+                            <button type="submit" (click)="deleteNode()" class="submit-button" >Yes</button>
+                        </p>
+                    </form>
+                </section>
+            </div>
+        
+        </div>
 
     <app-option></app-option>
 

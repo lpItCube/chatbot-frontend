@@ -6,9 +6,11 @@ import { ActivatedRoute } from '@angular/router';
 import { NodeService } from 'src/app/services/node.service';
 import { DragDropModule} from '@angular/cdk/drag-drop';
 
+
 import LeaderLine from 'leader-line-new';
 import { OptionComponent } from '../option/option.component';
 import { OptionService } from 'src/app/services/option.service';
+import { CollectionService } from '../../services/collection.service';
 
 @Component({
   selector: 'app-node',
@@ -27,6 +29,8 @@ export class NodeComponent implements OnInit {
   public nodeForLink = -1;
 
   public allLines = [];
+
+  public current_node_id = null;
 
   public nodeForm = this.fb.group({
     "title": ["", Validators.required],
@@ -49,6 +53,11 @@ export class NodeComponent implements OnInit {
 
   ngAfterViewInit(): void{
     this.fixTextareaHieght();
+
+  }
+
+  loadData(){
+
 
   }
 
@@ -273,12 +282,25 @@ export class NodeComponent implements OnInit {
     modal!.style.display = "block";
   }
 
-  closeModal(){
-    let modal = document.getElementById('NewNodeModal');
+  showModalEditNode(node_id){
+
+    this.loadData();
+    let modal = document.getElementById('EditNodeModal');
+    modal!.style.display = "block";
+  }
+
+  showModalDeleteNode(node_id){
+    let modal = document.getElementById('DeleteNodeModal');
+    this.current_node_id = node_id;
+    modal!.style.display = "block";
+  }
+
+  closeModal(name){
+    let modal = document.getElementById(name);
     modal!.style.display = "none";
   }
 
-  onSubmitNode() {
+  onSubmitNode(name) {
 
     if (this.nodeForm.invalid) { return; }
 
@@ -299,7 +321,7 @@ export class NodeComponent implements OnInit {
       if(res['id']){
 
         this.nodeForm.reset();
-        this.closeModal();
+        this.closeModal(name);
         window.location.reload();
         //window.location.href = ('/');
       }else{
@@ -315,6 +337,29 @@ export class NodeComponent implements OnInit {
 
   checkOption(id){
     console.log(id);
+  }
+
+  deleteNode(){
+
+    this.nodeservice.deleteNode(this.current_node_id).subscribe( async (res:any) => {
+
+
+      if(res == "ok"){
+        this.nodeForm.reset();
+        this.closeModal('DeleteNodeModal');
+        window.location.reload();
+      }
+        
+
+      
+
+
+    }, (err) => {
+      console.warn('Error respueta api:',err);
+ 
+    });
+
+
   }
 
   goPreview(){

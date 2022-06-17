@@ -73,6 +73,7 @@ export class OptionComponent implements OnInit {
       await new Promise<void> ((resolve, reject) => {
         this.optionservice.getNextNode(option.id).subscribe( async (res:any) => {
           
+          
 
           if(res != null){
             optionlink.push({"optionId": option.id, "nodeId": res.id});

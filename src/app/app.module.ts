@@ -11,6 +11,7 @@ import { CollectionsComponent } from './modules/collections/collections.componen
 import { NodeComponent } from './modules/node/node.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { OptionComponent } from './modules/option/option.component';
 import { PreviewComponent } from './modules/preview/preview.component';

@@ -26,4 +26,8 @@ export class NodeService {
       return this.http.get(environment.apiURL+"/getNextNode?optionId="+id);
     }
 
+    deleteNode(id: any){
+      return this.http.delete(environment.apiURL+"/removeNode?nodeId="+id, {responseType: 'text'});
+    }
+
 }

@@ -301,12 +301,44 @@
     background-color: beige;
     border: 2px solid green;
     opacity: 1;
+    cursor: pointer !important;
 
   }
 
 .cardEvent:hover~.nodeOption{
 
   opacity: 1;
+
+}
+
+.deleteForm{
+
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.cancel-button{
+
+  color: white;
+  background: #f44336;
+}
+
+.cancel-button:hover{
+
+  background: #eb857d;
+
+}
+
+.submit-button:hover{
+
+  color: white;
+  background: #89bb8b;
+
+}
+.submit-button{
+
+  color: white;
+  background: #4CAF50;
 
 }
 /*

@@ -18,15 +18,16 @@
             <ng-container *ngFor="let node of nodesOfCollection; let i = index">
             <div class="nodeCard example-box" cdkDragBoundary=".example-boundary" cdkDrag style="left: calc(200px + calc(350px * {{i}})) !important;"><!--id="nodeId-{{node['id']}}"-->
           
-                <header class="cardEvent" cdkDragHandle>{{node['title']}}
-                
-                </header>
+                <header class="cardEvent" cdkDragHandle>{{node['title']}}</header>
+
                 <div (click)="showModalDeleteNode(node['id'])" class="deleteOption nodeOption">
                     <span><i class="fa-solid fa-trash"></i></span>
                 </div>
                 <div (click)="showModalEditNode(node['id'])" class="editOption nodeOption">
                     <span><i  class="fa-solid fa-pen"></i></span>
                 </div>
+       
+
                 <div *ngIf="!node['firstNode'] && node['refOpt'].length == 0" id="nodeId-{{node['id']}}" class="circleNode inCircleEmpty"></div>
                 <div *ngIf="!node['firstNode'] && node['refOpt'].length > 0" id="nodeId-{{node['id']}}" class="circleNode inCircleFull"></div>
                 <div class="content"><!--TRY TODO DISABLED BODY-->
